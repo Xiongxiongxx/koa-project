@@ -16,15 +16,13 @@ app.use(KoaBody({
 
 // 解决跨域
 const cors = require('koa2-cors')
-app.use(cors())
-// 配置以下请求头后前端可不解决跨域问题
-app.use(async (ctx, next)=> {
-    ctx.set('Access-Control-Allow-Origin', '*');
-    ctx.set('Access-Control-Allow-Headers', 'Content-Type');
-    ctx.set('Access-Control-Allow-Methods', 'GET, POST');
-    ctx.set('Access-Control-Allow-Credentials', 'true');
-    await next();
-  });
+app.use(cors({
+  origin:"*",
+  methods:['GET','POST'],
+  alloweHeaders:['Conten-Type'],
+  credentials: true
+}))
+
 // 错误处理
 const jsonerror = require('koa-json-error')
 app.use(jsonerror())
